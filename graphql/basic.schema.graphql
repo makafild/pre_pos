@@ -1,0 +1,274 @@
+type Business{
+    id: ID!
+    agent: Agent
+    city: String
+    country: String
+    description: String
+    cellphone: String
+    economicCode: String
+    email: String
+    fullAddress: String
+    address: String
+    guilds: [Guilds]
+    latitude: Float
+    longitude: Float
+    rate: Rate
+    name: String
+    tagTrees: [TagTrees]
+    tags: [String]
+    userId: Int
+    ssoId: Int
+    state: String
+    status: Int
+    username: String
+    postalcode: Int
+    sheba: String
+}
+
+
+type Post{
+    id: ID!
+    entityId: Int
+    business: Business
+    name: String
+    data: String
+    canComment: Int
+    canLike: Int
+    enable: Boolean
+    hide: Boolean
+    latitude: Float
+    longitude: Float
+    tags: [String]
+    version: Int
+    tagTrees: [TagTrees]
+    rate: Rate
+    timestamp: Boolean
+    uniqid: String
+}
+
+type Tag{
+    businessSoftSrv: Business
+    name: String
+    id: ID!
+    createDate: Int
+    enable: Boolean
+    level: Int
+    code: String
+    parent:Int
+    metadata: TagTreeMetadata
+}
+
+type TagTreeMetadata{
+    icon: String
+    preview: String
+}
+
+
+type Invoice{
+    id: ID!
+    billNumber: String
+    business: Business
+    cellphoneNumber: String
+    cancelDate: Int
+    canceled: Boolean
+    closed: Boolean
+    guildSrv:[Guilds]
+    invoiceItemSrvs: [invoiceItemSrvs]
+    issuanceDate: Int
+    issuerSrv: IssuerSrv
+    userSrv: IssuerSrv
+    metadata: InvoiceMetadata
+    payableAmount: Int
+    payed: Boolean
+    paymentBillNumber: String
+    paymentDate: Int
+    referenceNumber: String
+    postVoucherEnabled: Boolean
+    totalAmount: Int
+    totalAmountWithoutDiscount: Int
+    uniqueNumber: String
+    vat: Int
+    verificationNeeded: Boolean
+    waiting: Boolean
+    exporterSrv: exporterSrvData
+    issuancePersianDate: String
+    customerInvoice: Invoice
+    subInvoices: [Invoice]
+}
+
+
+type exporterSrvData{
+    username: String
+}
+
+type InvoiceMetadata{
+    exporter: Int
+    date: Int
+    paymentType: String
+    qrCode: String
+    buyer: Buyer
+    seatCreation: [SeatCreation]
+}
+
+
+type SeatCreation {
+    row: Int
+    cell: Int
+}
+
+type Buyer{
+    type: String
+    businessId: Int
+    businessName: String
+    firstName: String
+    lastName: String
+    mobile: Int
+    ssoId: Int
+}
+
+type invoiceItemSrvs{
+    amount: Int
+    description: String
+    discount: Int
+    id:ID!
+    productSrv: ProductSrv
+    quantity: Int
+    voucherUsageSrvs: [VoucherUsageSrvs]
+}
+
+type VoucherUsageSrvs{
+    hash: String
+    consumDate: String
+    usedAmount: Int
+    canceled: Boolean
+}
+
+type ProductSrv{
+    id: ID!
+    attributeValues: [AttributeValues]
+    availableCount: Int
+    business: Business
+    currency: Currency
+    description: String
+    discount: Int
+    enable: Boolean
+    hide: Boolean
+    productGroup: ProductGroup
+    entityId: Int
+    latitude: Float
+    longitude: Float
+    content: String
+    name: String
+    preferredTaxRate: Int
+    price: Int
+    rate: Rate
+    version: Int
+}
+
+
+type Rate{
+    rate: Int
+    rateCount: Int
+    myRate: Int
+}
+
+type AttributeValues{
+    code: String
+    name: String
+    value: String
+}
+
+type ProductGroup{
+    id: ID!
+    sharedAttributeCodes: [String]
+}
+
+type IssuerSrv{
+    id: ID!
+    name: String
+    profileImage: String
+    ssoId: Int
+    ssoIssuerCode: Int
+}
+
+
+type Agent{
+    cellphoneNumber: String
+    firstName: String
+    id: ID!
+    lastName: String
+}
+
+type Guilds{
+    code: String!
+    id: ID!
+    name: String!
+}
+
+
+type Currency{
+    name: String
+    code: String
+}
+
+type Voucher{
+    id: ID!
+    business: Business
+    consumer: Consumer
+    dealerBusinessList:[String]
+    description: String
+    discountPercentage: Float
+    guild: [Guilds]
+    expireDate: Int
+    hash: String
+    name: String
+    type: Int
+    used: Boolean
+    usedAmount: Int
+    canceled: Boolean
+    active: Boolean
+    usageList: [VoucherUsageList]
+}
+
+type VoucherUsageList{
+    hash: String
+    name: String
+    consumDate: Int
+    usedAmount: Int
+    canceled: Boolean
+}
+
+
+type Consumer{
+    id: ID!
+    name: String
+    profileImage: String
+    ssoId: Int
+    ssoIssuerCode: Int
+}
+
+type User{
+  client_metadata: UserClientMetadata
+  email_verified: Boolean
+  id: ID!
+  nationalcode_verified: Boolean
+  phone_number_verified: Boolean
+  preferred_username: String
+  updated_at: Int
+}
+
+type UserClientMetadata{
+    businessType: String
+    businessLevel: String
+    status: Int
+    apiToken: String
+    ip: String
+    businessId: Int
+    roleId: [Int]
+}
+
+type TagTrees{
+    name: String
+    code: Int
+    id: Int
+}
